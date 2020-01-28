@@ -1,0 +1,191 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "News API",
+        "description": "News API is test in detik.com",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/admin/articles": {
+            "get": {
+                "tags": [
+                    "article"
+                ],
+                "summary": "Fetch all articles",
+                "description": "Returns all articles",
+                "operationId": "listArticles",
+                "responses": {
+                    "200": {
+                        "description": "List of articles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Article"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "article"
+                ],
+                "summary": "Add a new article",
+                "description": "Adding new article data",
+                "operationId": "addArticle",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "judul": {
+                                        "type": "string"
+                                    },
+                                    "summary": {
+                                        "type": "string"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string"
+                                    },
+                                    "penulis": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Invalid article parameter"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/articles/{articleId}": {
+            "get": {
+                "tags": [
+                    "article"
+                ],
+                "summary": "Get article by ID",
+                "description": "Returns a single article data",
+                "operationId": "getArticleByID",
+                "parameters": [
+                    {
+                        "name": "articleId",
+                        "in": "path",
+                        "description": "ID of article to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Article"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Field not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "article"
+                ],
+                "summary": "Delete article based on ID",
+                "description": "",
+                "operationId": "deleteArticleById",
+                "parameters": [
+                    {
+                        "name": "articleId",
+                        "in": "path",
+                        "description": "ID of article to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "article not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Article": {
+                "title": "Article",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "judul": {
+                        "type": "string"
+                    },
+                    "summary": {
+                        "type": "integer"
+                    },
+                    "deskripsi": {
+                        "type": "integer"
+                    },
+                    "penulis": {
+                        "type": "integer"
+                    },
+                    "image": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
