@@ -21,7 +21,8 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1', 'middleware' => ['base-r
         $router->get('articles', ['as' => 'articles.index', 'uses' => 'ArticleController@index']);
         $router->get('articles/{articleId}', ['as' => 'articles.show', 'uses' => 'ArticleController@show']);
         $router->post('articles', ['as' => 'articles.store', 'uses' => 'ArticleController@store']);
-        $router->put('articles/{articleId}', ['as' => 'articles.update', 'uses' => 'ArticleController@update']);
+        // Untuk update data menggunakan method post karena di saat saya coba postman untuk form-data nya hanya bisa di gunakan menggunakan method POST.
+        $router->post('articles/{articleId}', ['as' => 'articles.update', 'uses' => 'ArticleController@update']);
         $router->delete('articles/{articleId}', ['as' => 'articles.delete', 'uses' => 'ArticleController@destroy']);
     });
 });

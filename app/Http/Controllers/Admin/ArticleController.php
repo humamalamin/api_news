@@ -181,6 +181,11 @@ class ArticleController extends Controller
      *             @OA\Schema(
      *                 type="object",
      *                 @OA\Property(
+     *                      property="_method",
+     *                      type="string",
+     *                      example="PUT"
+     *                 ),
+     *                 @OA\Property(
      *                     property="judul",
      *                     type="string"
      *                 ),
@@ -215,10 +220,6 @@ class ArticleController extends Controller
      *         response=404,
      *         description="Article not found"
      *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Invalid ID article"
-     *     )
      * )
      *
      * @param  Request  $request
@@ -238,7 +239,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($articleId);
 
         // @codeCoverageIgnoreStart
-        $pathImage = "";
+        $pathImage = $article->image;
         if ($request->hasFile('image')) {
             $fileUpload = $request->file('image');
             $targetFileUpload =  'article/' . date('YmdHis') .'_' . strtolower(str_replace(' ', '_', $fileUpload->getClientOriginalName()));

@@ -134,11 +134,11 @@ class FieldTest extends TestCase
     }
 
     /**
-     * ../admin/articles/{articleId} [PUT]
+     * ../admin/articles/{articleId} [POST]
      */
     public function testUpdateArticle()
     {
-        $this->put(route('api.v1.admin.articles.update', ['articleId' => $this->article->id]), [
+        $this->post(route('api.v1.admin.articles.update', ['articleId' => $this->article->id]), [
             'judul' => 'Harry Potter2',
             'summary' => 'afaegvdzvdv',
             'deskripsi' => 'adadadadasaafsafg',
@@ -163,11 +163,11 @@ class FieldTest extends TestCase
     }
 
     /**
-     * ../admin/articles/{articleId} [PUT]
+     * ../admin/articles/{articleId} [POST]
      */
     public function testErrorUpdateArticle404()
     {
-        $this->put(route('api.v1.admin.articles.update', ['articleId' => 0]), [
+        $this->post(route('api.v1.admin.articles.update', ['articleId' => 0]), [
             'judul' => 'Harry Potter2',
             'summary' => 'afaegvdzvdv',
             'deskripsi' => 'adadadadasaafsafg',
@@ -184,11 +184,11 @@ class FieldTest extends TestCase
     }
 
     /**
-     * ../admin/articles/{articleId} [PUT]
+     * ../admin/articles/{articleId} [POST]
      */
     public function testErrorUpdateArticle422()
     {
-        $this->put(route('api.v1.admin.articles.update', ['articleId' => $this->article->id]), [
+        $this->post(route('api.v1.admin.articles.update', ['articleId' => $this->article->id]), [
             'judul' => 'Harry Potter2',
             'summary' => 'afaegvdzvdv',
             'deskripsi' => 'adadadadasaafsafg',
@@ -200,26 +200,6 @@ class FieldTest extends TestCase
             'data',
             'status',
             'message',
-            'errors'
-        ]);
-    }
-
-    /**
-     * ../admin/articles/{articleId} [PUT]
-     */
-    public function testErrorUpdateArticle400()
-    {
-        $this->put(route('api.v1.admin.articles.update', ['articleId' => '']), [
-            'judul' => 'Harry Potter2',
-            'summary' => 'afaegvdzvdv',
-            'deskripsi' => 'adadadadasaafsafg',
-            'penulis' => 'Roland'
-        ]);
-
-        $this->seeStatusCode(400);
-        $this->seeJsonStructure([
-            'data',
-            'status',
             'errors'
         ]);
     }
