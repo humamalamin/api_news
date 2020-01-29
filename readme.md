@@ -138,6 +138,5 @@ For a more complete explanation, please visit [Laravel Directory Structure](http
 
 ## Reference
 
-* [Laravel CORS](https://github.com/spatie/laravel-cors)
 * [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
 * [PHPMD](https://github.com/phpmd/phpmd)
