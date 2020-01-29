@@ -1,4 +1,4 @@
-# KUM ASTRA
+# API NEWS
 
 API Newa is test in detik.com.
 
