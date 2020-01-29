@@ -55,6 +55,7 @@ git clone git@github.com:humamalamin/api_news.git
 # Switch to the repository folder
 cd api_news
 chmod +x artisan
+chmod 777 -R storage/
 
 ```
 

@@ -134,6 +134,97 @@ class FieldTest extends TestCase
     }
 
     /**
+     * ../admin/articles/{articleId} [PUT]
+     */
+    public function testUpdateArticle()
+    {
+        $this->put(route('api.v1.admin.articles.update', ['articleId' => $this->article->id]), [
+            'judul' => 'Harry Potter2',
+            'summary' => 'afaegvdzvdv',
+            'deskripsi' => 'adadadadasaafsafg',
+            'penulis' => 'Roland'
+        ]);
+
+        $this->seeStatusCode(200);
+        $this->seeJsonStructure([
+            'data' => [
+                'id',
+                'judul',
+                'summary',
+                'deskripsi',
+                'penulis',
+                'image',
+                'created_at'
+            ],
+            'status',
+            'message',
+            'errors'
+        ]);
+    }
+
+    /**
+     * ../admin/articles/{articleId} [PUT]
+     */
+    public function testErrorUpdateArticle404()
+    {
+        $this->put(route('api.v1.admin.articles.update', ['articleId' => 0]), [
+            'judul' => 'Harry Potter2',
+            'summary' => 'afaegvdzvdv',
+            'deskripsi' => 'adadadadasaafsafg',
+            'penulis' => 'Roland'
+        ]);
+
+        $this->seeStatusCode(404);
+        $this->seeJsonStructure([
+            'data',
+            'status',
+            'message',
+            'errors'
+        ]);
+    }
+
+    /**
+     * ../admin/articles/{articleId} [PUT]
+     */
+    public function testErrorUpdateArticle422()
+    {
+        $this->put(route('api.v1.admin.articles.update', ['articleId' => $this->article->id]), [
+            'judul' => 'Harry Potter2',
+            'summary' => 'afaegvdzvdv',
+            'deskripsi' => 'adadadadasaafsafg',
+            'penuliss' => 'Roland'
+        ]);
+
+        $this->seeStatusCode(422);
+        $this->seeJsonStructure([
+            'data',
+            'status',
+            'message',
+            'errors'
+        ]);
+    }
+
+    /**
+     * ../admin/articles/{articleId} [PUT]
+     */
+    public function testErrorUpdateArticle400()
+    {
+        $this->put(route('api.v1.admin.articles.update', ['articleId' => '']), [
+            'judul' => 'Harry Potter2',
+            'summary' => 'afaegvdzvdv',
+            'deskripsi' => 'adadadadasaafsafg',
+            'penulis' => 'Roland'
+        ]);
+
+        $this->seeStatusCode(400);
+        $this->seeJsonStructure([
+            'data',
+            'status',
+            'errors'
+        ]);
+    }
+
+    /**
      * ../admin/articles/{articleId} [DELETE]
      */
     public function testCanDeleteArticle()

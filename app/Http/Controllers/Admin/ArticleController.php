@@ -167,6 +167,95 @@ class ArticleController extends Controller
     }
 
     /**
+     * @OA\Put(
+     *   path="/api/v1/admin/articles/{articleId}",
+     *     tags={"article"},
+     *     summary="Edit article",
+     *     description="Updating article data",
+     *     operationId="editArticle",
+     *     @OA\RequestBody(
+     *         description="",
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="judul",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="summary",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="deskripsi",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="penulis",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="image",
+     *                     type="string"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Invalid article parameter"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Article not found"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid ID article"
+     *     )
+     * )
+     *
+     * @param  Request  $request
+     * @param  int  $articleId
+     * @return Illuminate\Http\Resources\Json\Resource
+     */
+    public function update(Request $request, $articleId)
+    {
+        $this->validate($request, [
+            'judul' => 'required',
+            'summary' => 'required',
+            'deskripsi' => 'required',
+            'penulis' => 'required',
+            'image' => 'mimes:jpeg, png, jpg'
+        ]);
+
+        $article = Article::findOrFail($articleId);
+
+        // @codeCoverageIgnoreStart
+        $pathImage = "";
+        if ($request->hasFile('image')) {
+            $fileUpload = $request->file('image');
+            $targetFileUpload =  'article/' . date('YmdHis') .'_' . strtolower(str_replace(' ', '_', $fileUpload->getClientOriginalName()));
+
+            Storage::disk('public')->put($targetFileUpload, file_get_contents($fileUpload));
+            $pathImage = $targetFileUpload;
+        }
+        // @codeCoverageIgnoreEnd
+
+        $article->update(array_merge($request->all(), [
+            'image' => $pathImage
+        ]));
+
+        return new ArticleResource($article);
+    }
+
+    /**
      * @OA\Delete(
      *     path="/api/v1/admin/articles/{articleId}",
      *     tags={"article"},

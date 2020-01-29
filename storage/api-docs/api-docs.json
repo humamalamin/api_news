@@ -124,6 +124,56 @@
                     }
                 }
             },
+            "put": {
+                "tags": [
+                    "article"
+                ],
+                "summary": "Edit article",
+                "description": "Updating article data",
+                "operationId": "editArticle",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "judul": {
+                                        "type": "string"
+                                    },
+                                    "summary": {
+                                        "type": "string"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string"
+                                    },
+                                    "penulis": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Invalid article parameter"
+                    },
+                    "404": {
+                        "description": "Article not found"
+                    },
+                    "400": {
+                        "description": "Invalid ID article"
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "article"
