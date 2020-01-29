@@ -124,7 +124,7 @@
                     }
                 }
             },
-            "put": {
+            "post": {
                 "tags": [
                     "article"
                 ],
@@ -138,6 +138,10 @@
                         "multipart/form-data": {
                             "schema": {
                                 "properties": {
+                                    "_method": {
+                                        "type": "string",
+                                        "example": "PUT"
+                                    },
                                     "judul": {
                                         "type": "string"
                                     },
@@ -168,9 +172,6 @@
                     },
                     "404": {
                         "description": "Article not found"
-                    },
-                    "400": {
-                        "description": "Invalid ID article"
                     }
                 }
             },

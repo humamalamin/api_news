@@ -167,7 +167,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @OA\Put(
+     * @OA\POST(
      *   path="/api/v1/admin/articles/{articleId}",
      *     tags={"article"},
      *     summary="Edit article",
